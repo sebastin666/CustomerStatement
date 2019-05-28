@@ -1,12 +1,9 @@
 package com.rbb.report.parse.util;
 
-import java.io.File;
-
-import com.rbb.report.model.Record;
-import com.rbb.report.model.Records;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ObjectMapper {
 		
-	public Object mapObject(File file) throws UnsupportedOperationException;
+	public Object mapObject(MultipartFile file) throws UnsupportedOperationException;
 
 }

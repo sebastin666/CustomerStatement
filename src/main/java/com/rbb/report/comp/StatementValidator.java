@@ -1,49 +1,52 @@
 package com.rbb.report.comp;
 
-import java.util.ArrayList;
+import com.rbb.report.model.Record;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import com.rbb.report.model.Record;
-
 @Component
 public class StatementValidator {
 
-	@Value("${upload.csvformat}")
-	private String csvFormat;
-	@Value("${upload.xmlformat}")
-	private String xmlFormat;
+	Logger logger = LoggerFactory.getLogger(StatementValidator.class);
 
-	private List<String> allowedFormats = new ArrayList<>();
-
-	@PostConstruct
-	public void init() {
-		allowedFormats.add(csvFormat);
-		allowedFormats.add(xmlFormat);
-		System.out.println("Allowed formats::" + allowedFormats);
-	}
+	@Value("#{'${upload.allowed.format}'.split(',')}")
+	private List<String> allowedFormats;
 
 	public boolean isAllowedFormat(String fileFormat) {
+		logger.debug("Allowed Formats : " + allowedFormats.contains(fileFormat));
 		return allowedFormats.contains(fileFormat);
 	}
 
-	public List<Record> filterDuplicateRecords(List<Record> totalRecords) {
-		
-		return totalRecords.stream().filter(record -> Collections.frequency(totalRecords, record) > 1)
-				.collect(Collectors.toList());		
+	public List<Record> getDuplicateRecords(List<Record> totalRecords) {		
+		try {
+			if (totalRecords != null && !totalRecords.isEmpty()) {
+				return totalRecords.stream().filter(record -> Collections.frequency(totalRecords, record) > 1)
+						.collect(Collectors.toList());
+			}
+		} catch (Exception e) {
+			throw new UnsupportedOperationException(
+					"Error occured while validating duplicate references. Please check for any invalid data in the uploaded file.");
+		}
+		return totalRecords;
 	}
-	
-	public List<Record> filterWrongEndBalanceRecords(List<Record> totalRecords) {
-		
-		return totalRecords.stream()
-				.filter(record -> (((Record) record).getStartBalance().add(((Record) record).getMutation()))
-						.compareTo(((Record) record).getEndBalance()) != 0).collect(Collectors.toList());	
+
+	public List<Record> getWrongEndBalanceRecords(List<Record> totalRecords) {		
+		try {
+			if (totalRecords != null && !totalRecords.isEmpty()) {
+				return totalRecords.stream().filter(record -> (record.getStartBalance().add(record.getMutation()))
+						.compareTo(record.getEndBalance()) != 0).collect(Collectors.toList());
+			}
+		} catch (Exception e) {
+			throw new UnsupportedOperationException(
+					"Error occured while validating end balance. Please check for any invalid data in the uploaded file.");
+		}
+		return totalRecords;
 	}
 
 }

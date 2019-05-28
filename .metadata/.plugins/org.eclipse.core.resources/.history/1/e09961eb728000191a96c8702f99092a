@@ -1,0 +1,17 @@
+server.port=8083
+server.servlet.context-path=/docsigner/
+server.connection-timeout=100000
+server.max-http-header-size=8000KB
+workFLowTypeForm =W
+signedFile_Path =SignedFile_Path
+upload_Path =Upload_Path
+mailedFile_Path =MailedFile_Path
+imgWidth =160
+imgHeight =60
+dsign_Height=Dsign_Height
+dsign_Width=Dsign_Width
+spring.servlet.multipart.maxFileSize=300MB
+spring.servlet.multipart.maxRequestSize=300MB
+jwt.secretkey=secretkey
+
+			

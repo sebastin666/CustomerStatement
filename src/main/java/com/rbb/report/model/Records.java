@@ -15,7 +15,6 @@ public class Records {
 		
 	public Records(List<Record> records) {
 		this.records = records;
-		System.out.println("rec:::::"+this.records);
 	}
 
 	@XmlElement(name = "record")
