@@ -1,6 +1,7 @@
 # Customer Statement
 Validate the customer statement and generate the report to show the failed records.
-The duplicated records and wrong end balance records are considered as failed records.
+The duplicated records and wrong end balance records are considered as failed records. The transaction reference and description of each of the failed records will be available on the response to display.  
+
 
 **_Junit Test 5_** used with **80%** code coverage.
 
