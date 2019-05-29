@@ -8,3 +8,5 @@ Swagger added to highlight the API details and testing purpose.
 
 
 **Swagger URL:** http://~~localhost~~:~~8080~~/CustomerStatement/swagger-ui.html
+
+![swagger](https://user-images.githubusercontent.com/51176876/58591986-22f12100-8285-11e9-8c28-c4e4051635b9.png)
