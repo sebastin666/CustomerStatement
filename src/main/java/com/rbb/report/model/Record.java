@@ -121,10 +121,4 @@ public class Record {
 		return true;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Record [reference=" + reference + ", accountNumber=" + accountNumber + ", startBalance=" + startBalance
-//				+ ", mutation=" + mutation + ", endBalance=" + endBalance + ", description=" + description + "]";
-//	}
-
 }

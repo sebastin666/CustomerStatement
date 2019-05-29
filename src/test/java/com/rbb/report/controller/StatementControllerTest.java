@@ -31,7 +31,7 @@ public class StatementControllerTest extends MockBase{
 
 	@Test
 	public void testStatementReceiverWithNoContent() {		
-		ResponseEntity<?> entity = controller.statementReceiver(mockCSVMultipartFile);
+		ResponseEntity<?> entity = controller.validateStatement(mockCSVMultipartFile);
 		assertThat(entity.getStatusCode().value()).isEqualTo(204);
 	}
 
@@ -40,7 +40,7 @@ public class StatementControllerTest extends MockBase{
 		List<Record> data = new ArrayList<>();
 		data.add(new Record());
 		Mockito.when(statementService.genarateReport(any())).thenReturn(data);
-		ResponseEntity<?> entity = controller.statementReceiver(mockCSVMultipartFile);
+		ResponseEntity<?> entity = controller.validateStatement(mockCSVMultipartFile);
 		assertThat(entity.getStatusCode().value()).isEqualTo(200);
 	}
 
@@ -48,7 +48,7 @@ public class StatementControllerTest extends MockBase{
 	@Test
 	public void testStatementReceiverWithInvalidFileContent() {
 		Mockito.when(statementService.genarateReport(any())).thenThrow(UnsupportedOperationException.class);
-		ResponseEntity<?> entity = controller.statementReceiver(mockCSVMultipartFile);
+		ResponseEntity<?> entity = controller.validateStatement(mockCSVMultipartFile);
 		assertThat(entity.getStatusCode().value()).isEqualTo(400);
 	}
 

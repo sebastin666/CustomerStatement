@@ -19,7 +19,7 @@ public class CSVParser implements Parser {
 	Logger logger = LoggerFactory.getLogger(CSVParser.class);
 	
 	@Override
-	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException {
+	public Object parse(MultipartFile file) throws UnsupportedOperationException {
 
 		BeanListProcessor<Record> rowProcessor = new BeanListProcessor<Record>(Record.class);
 		CsvParserSettings parserSettings = new CsvParserSettings();

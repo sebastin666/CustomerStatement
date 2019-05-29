@@ -13,7 +13,7 @@ class CSVParserTest extends MockBase {
 
 	@Test
 	void testParseToObject() {
-		assertEquals(getMockCSVRecordList(), ((Records) csvParser.parseToObject(mockCSVMultipartFile)).getRecords(), "Test CSV pasring");
+		assertEquals(getMockCSVRecordList(), ((Records) csvParser.parse(mockCSVMultipartFile)).getRecords(), "Test CSV pasring");
 	}
 
 }

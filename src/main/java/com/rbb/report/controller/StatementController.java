@@ -21,16 +21,16 @@ import com.rbb.report.model.Record;
 
 @RestController
 @RequestMapping("/statement")
-@Api(value="Upload Customer Statement File", tags="Genarate the fail report form the uploaded statement.")
+@Api(value = "Upload Customer Statement File", tags = "Genarate the fail report form the uploaded statement.")
 public class StatementController {
 
 	Logger logger = LoggerFactory.getLogger(StatementController.class);
 
 	@Autowired
 	StatementService statementService;
-	
-	@PostMapping("/upload") 	
-	public ResponseEntity<?> statementReceiver(@RequestParam("file") MultipartFile file) {
+
+	@PostMapping("/validate")
+	public ResponseEntity<?> validateStatement(@RequestParam("file") MultipartFile file) {
 		try {
 			List<Record> failedRecords = statementService.genarateReport(file);
 			if (failedRecords != null && !failedRecords.isEmpty()) {
@@ -40,7 +40,7 @@ public class StatementController {
 			logger.error("Error Uploading file: ", ex);
 			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return new ResponseEntity<List<Record>>(HttpStatus.NO_CONTENT);
 	}
 

@@ -6,7 +6,7 @@ public final class ParserUtil {
 
 	public static Object parse(String fileType, MultipartFile file) throws UnsupportedOperationException{
 		
-		return ParserFactory.getParser(fileType).parseToObject(file);
+		return ParserFactory.getParser(fileType).parse(file);
 		
 	}
 }

@@ -36,7 +36,7 @@ class XMLParserTest extends MockBase {
 	@Test
 	void testParseToObject() {
 		if (mockXMLMultipartFile != null)
-			assertEquals(getMockXMLRecordList(), ((Records) xmlParser.parseToObject(mockXMLMultipartFile)).getRecords(),
+			assertEquals(getMockXMLRecordList(), ((Records) xmlParser.parse(mockXMLMultipartFile)).getRecords(),
 					"Test XML pasring");
 	}
 
@@ -44,7 +44,7 @@ class XMLParserTest extends MockBase {
 	void testParseToObjectWithInvalidData() {
 		if (mockInvalidXMLMultipartFile != null)
 			assertThrows(UnsupportedOperationException.class,
-					() -> xmlParser.parseToObject(mockInvalidXMLMultipartFile), "Test XML pasring with invalid data");
+					() -> xmlParser.parse(mockInvalidXMLMultipartFile), "Test XML pasring with invalid data");
 	}
 
 }

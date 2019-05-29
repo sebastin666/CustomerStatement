@@ -4,6 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface Parser {
 		
-	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException;
+	public Object parse(MultipartFile file) throws UnsupportedOperationException;
 
 }

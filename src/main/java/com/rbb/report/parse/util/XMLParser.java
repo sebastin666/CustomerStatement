@@ -17,7 +17,7 @@ public class XMLParser implements Parser {
 	Logger logger = LoggerFactory.getLogger(XMLParser.class);
 	
 	@Override
-	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException {
+	public Object parse(MultipartFile file) throws UnsupportedOperationException {
 		Object obj = null;
 		try {
 			JAXBContext context = JAXBContext.newInstance(Records.class);
