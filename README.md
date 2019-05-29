@@ -2,9 +2,9 @@
 Validate the customer statement and generate the report to show the failed records.
 The duplicated records and wrong end balance records are considered as failed records.
 
-*Junit Test 5* used with 80% code coverage.
+**_Junit Test 5_** used with **80%** code coverage.
 
-*Swagger2* added to highlight the API details and testing purpose.
+**_Swagger2_** added to highlight the API details and testing purpose.
 
 
 
