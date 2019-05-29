@@ -1,5 +1,6 @@
 package com.rbb.report.parse.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +22,8 @@ class ParserFactoryTest {
 	@Test
 	void testGetParser() {
 		assertAll(
-//		() -> assertEquals(xmlParser, ParserFactory.getParser("xml")),
-//		() -> assertEquals(csvParser, ParserFactory.getParser("csv")),
+		() -> assertThat(ParserFactory.getParser("xml")).isInstanceOf(XMLParser.class),
+		() -> assertThat(ParserFactory.getParser("csv")).isInstanceOf(CSVParser.class),
 		() -> assertThrows(UnsupportedOperationException.class, () -> ParserFactory.getParser(null)),
 		() -> assertThrows(UnsupportedOperationException.class, () -> ParserFactory.getParser("txt"))
 		);

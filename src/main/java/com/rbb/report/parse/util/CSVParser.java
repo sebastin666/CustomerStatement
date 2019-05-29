@@ -30,7 +30,7 @@ public class CSVParser implements Parser {
 		CsvParser parser = new CsvParser(parserSettings);
 		try (Reader reader = new InputStreamReader(file.getInputStream())) {
 			parser.parse(reader);
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			logger.error("Error occured while parsing xml. " + ex.getMessage());
 			throw new UnsupportedOperationException("Error occured while parsing csv. ");
 		}

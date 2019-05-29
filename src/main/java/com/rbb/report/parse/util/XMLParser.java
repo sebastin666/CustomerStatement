@@ -23,7 +23,7 @@ public class XMLParser implements Parser {
 			JAXBContext context = JAXBContext.newInstance(Records.class);
 			Unmarshaller parser = context.createUnmarshaller();
 			obj = parser.unmarshal(file.getInputStream());
-		} catch (JAXBException | IOException e) {
+		} catch (Exception e) {			
 			logger.error("Error occured while parsing xml. " + e.getMessage());
 			throw new UnsupportedOperationException("Error occured while parsing xml. ");
 		}

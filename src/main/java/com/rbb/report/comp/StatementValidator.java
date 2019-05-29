@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class StatementValidator {
 			throw new UnsupportedOperationException(
 					"Error occured while validating duplicate references. Please check for any invalid data in the uploaded file.");
 		}
-		return totalRecords;
+		return new ArrayList<Record>();
 	}
 
 	public List<Record> getWrongEndBalanceRecords(List<Record> totalRecords) {		
@@ -46,7 +47,7 @@ public class StatementValidator {
 			throw new UnsupportedOperationException(
 					"Error occured while validating end balance. Please check for any invalid data in the uploaded file.");
 		}
-		return totalRecords;
+		return new ArrayList<Record>();
 	}
 
 }

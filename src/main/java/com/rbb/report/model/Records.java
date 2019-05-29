@@ -28,9 +28,4 @@ public class Records {
 		this.records = records;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getRecords().toString();
-	}
 }

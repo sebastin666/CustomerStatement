@@ -24,6 +24,9 @@ public class StatementService {
 
 	public List<Record> genarateReport(MultipartFile file) throws UnsupportedOperationException {
 		logger.debug("GenarateReport Called");
+		if(file == null) {
+			throw new UnsupportedOperationException("Invalid file. Please try again.");
+		}
 		//				
 		String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 		logger.debug(" fileType::" + fileType);
