@@ -2,11 +2,8 @@ package com.rbb.report.parse.util;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public final class Parser {
+public interface Parser {
+		
+	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException;
 
-	public static Object parse(String fileType, MultipartFile file) throws UnsupportedOperationException{
-		
-		return ObjectMapperFactory.getObjectMapper(fileType).mapObject(file);
-		
-	}
 }

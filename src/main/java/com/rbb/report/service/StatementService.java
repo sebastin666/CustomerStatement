@@ -1,6 +1,5 @@
 package com.rbb.report.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.rbb.report.comp.StatementValidator;
 import com.rbb.report.model.Record;
 import com.rbb.report.model.Records;
-import com.rbb.report.parse.util.Parser;
+import com.rbb.report.parse.util.ParserUtil;
 
 @Service
 public class StatementService {
@@ -33,14 +32,14 @@ public class StatementService {
 			throw new UnsupportedOperationException("Not supported. Unknown file format " + fileType + ".");
 		}
 		//
-		Records records = (Records) Parser.parse(fileType, file);	
+		Records records = (Records) ParserUtil.parse(fileType, file);	
 		// Call for validations
 		List<Record> failedRecords = filterFailedRecords(records.getRecords());
 
 		return failedRecords;
 	}
 
-	public List<Record> filterFailedRecords(List<Record> totalRecords) {
+	protected List<Record> filterFailedRecords(List<Record> totalRecords) {
 		if(totalRecords == null || totalRecords.isEmpty()) {
 			throw new UnsupportedOperationException("No records available in the uploaded file.");
 		}

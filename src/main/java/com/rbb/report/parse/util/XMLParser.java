@@ -12,12 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rbb.report.model.Records;
 
-public class XMLObjectMapper implements ObjectMapper {
+public class XMLParser implements Parser {
 		
-	Logger logger = LoggerFactory.getLogger(XMLObjectMapper.class);
+	Logger logger = LoggerFactory.getLogger(XMLParser.class);
 	
 	@Override
-	public Object mapObject(MultipartFile file) throws UnsupportedOperationException {
+	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException {
 		Object obj = null;
 		try {
 			JAXBContext context = JAXBContext.newInstance(Records.class);

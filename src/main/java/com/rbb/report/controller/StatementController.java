@@ -14,18 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rbb.report.service.StatementService;
+
+import io.swagger.annotations.Api;
+
 import com.rbb.report.model.Record;
 
 @RestController
 @RequestMapping("/statement")
+@Api(value="Upload Customer Statement File", tags="Genarate the fail report form the uploaded statement.")
 public class StatementController {
 
 	Logger logger = LoggerFactory.getLogger(StatementController.class);
 
 	@Autowired
 	StatementService statementService;
-
-	@PostMapping("/upload")
+	
+	@PostMapping("/upload") 	
 	public ResponseEntity<?> statementReceiver(@RequestParam("file") MultipartFile file) {
 		try {
 			List<Record> failedRecords = statementService.genarateReport(file);

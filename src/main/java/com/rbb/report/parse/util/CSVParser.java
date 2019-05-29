@@ -14,12 +14,12 @@ import com.univocity.parsers.common.processor.BeanListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
-public class CSVObjectMapper implements ObjectMapper {
+public class CSVParser implements Parser {
 
-	Logger logger = LoggerFactory.getLogger(CSVObjectMapper.class);
+	Logger logger = LoggerFactory.getLogger(CSVParser.class);
 	
 	@Override
-	public Object mapObject(MultipartFile file) throws UnsupportedOperationException {
+	public Object parseToObject(MultipartFile file) throws UnsupportedOperationException {
 
 		BeanListProcessor<Record> rowProcessor = new BeanListProcessor<Record>(Record.class);
 		CsvParserSettings parserSettings = new CsvParserSettings();
