@@ -1,68 +1,64 @@
 package com.rbb.report.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.InputStream;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import com.rbb.report.model.Record;
+import com.rbb.report.service.StatementService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Spy;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.Whitebox;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
-class StatementControllerTest {
+import java.util.ArrayList;
+import java.util.List;
 
-    private MockMvc mockMvc;
-    private StatementController controller;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+
+public class StatementControllerTest {
+
+    private StatementController controller = new StatementController();
+   StatementService statementService = Mockito.mock(StatementService.class);
+   MockMultipartFile mockMultipartFile = new MockMultipartFile("records","records.csv",
+         "text/plain", getMockCSVData().getBytes());
     
-    @BeforeEach
-    public void init() {
-    	controller = new StatementController();
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-//        is = controller.getClass().getClassLoader().getResourceAsStream("excel.xlsx");
-    }
+   @Test
+   public void testStatementReceiverWithNoContent() {
+      Whitebox.setInternalState(controller, "statementService", statementService);
+      ResponseEntity entity = controller.statementReceiver(mockMultipartFile);
+      assertThat(entity.getStatusCode().value()).isEqualTo(204);
+   }
 
-    
-	@Test
-	@Disabled
-	void testStatementReceiver() {
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("user-file","records.csv",
-	              "text/plain", getMockCSVData().getBytes());
+   @Test
+   public void testStatementReceiverWithContent() {
+      Whitebox.setInternalState(controller, "statementService", statementService);
+      List<Record> data = new ArrayList<>();
+      data.add(new Record());
+       Mockito.when(statementService.genarateReport(any())).thenReturn(data);
+      ResponseEntity entity = controller.statementReceiver(mockMultipartFile);
+      assertThat(entity.getStatusCode().value()).isEqualTo(200);
+   }
 
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.fileUpload("/statement/upload")
-	    		  .file(mockMultipartFile).contentType(MediaType.MULTIPART_FORM_DATA);
-	      try {
-			MvcResult result = mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
-			assertEquals(200, result.getResponse().getStatus());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	String getMockCSVData() {
-		return "Reference,AccountNumber,Description,Start Balance,Mutation,End Balance\r\n" + 
-				"194261,NL91RABO0315273637,Clothes from Jan Bakker,21.6,-41.83,-20.23\r\n" + 
-				"112806,NL27SNSB0917829871,Clothes for Willem Dekker,91.23,+15.57,106.8\r\n" + 
-				"183049,NL69ABNA0433647324,Clothes for Jan King,86.66,+44.5,131.16\r\n" + 
-				"183356,NL74ABNA0248990274,Subscription for Peter de Vries,92.98,-46.65,46.33\r\n" + 
-				"112806,NL69ABNA0433647324,Clothes for Richard de Vries,90.83,-10.91,79.92\r\n" + 
-				"112806,NL93ABNA0585619023,Tickets from Richard Bakker,102.12,+45.87,147.99\r\n" + 
-				"139524,NL43AEGO0773393871,Flowers from Jan Bakker,99.44,+41.23,140.67\r\n" + 
-				"179430,NL93ABNA0585619023,Clothes for Vincent Bakker,23.96,-27.43,-3.47\r\n" + 
-				"141223,NL93ABNA0585619023,Clothes from Erik Bakker,94.25,+41.6,135.85\r\n" + 
-				"195446,NL74ABNA0248990274,Flowers for Willem Dekker,26.32,+48.98,75.3";
-	}
+   @Test
+   public void testStatementReceiverWithException() {
+      List<Record> data = new ArrayList<>();
+      data.add(new Record());
+      Mockito.when(statementService.genarateReport(any())).thenReturn(data);
+      ResponseEntity entity = controller.statementReceiver(mockMultipartFile);
+      assertThat(entity.getStatusCode().value()).isEqualTo(400);
+   }
+   
+   String getMockCSVData() {
+      return "Reference,AccountNumber,Description,Start Balance,Mutation,End Balance\r\n" + 
+            "194261,NL91RABO0315273637,Clothes from Jan Bakker,21.6,-41.83,-20.23\r\n" + 
+            "112806,NL27SNSB0917829871,Clothes for Willem Dekker,91.23,+15.57,106.8\r\n" + 
+            "183049,NL69ABNA0433647324,Clothes for Jan King,86.66,+44.5,131.16\r\n" + 
+            "183356,NL74ABNA0248990274,Subscription for Peter de Vries,92.98,-46.65,46.33\r\n" + 
+            "112806,NL69ABNA0433647324,Clothes for Richard de Vries,90.83,-10.91,79.92\r\n" + 
+            "112806,NL93ABNA0585619023,Tickets from Richard Bakker,102.12,+45.87,147.99\r\n" + 
+            "139524,NL43AEGO0773393871,Flowers from Jan Bakker,99.44,+41.23,140.67\r\n" + 
+            "179430,NL93ABNA0585619023,Clothes for Vincent Bakker,23.96,-27.43,-3.47\r\n" + 
+            "141223,NL93ABNA0585619023,Clothes from Erik Bakker,94.25,+41.6,135.85\r\n" + 
+            "195446,NL74ABNA0248990274,Flowers for Willem Dekker,26.32,+48.98,75.3";
+   }
 
 }

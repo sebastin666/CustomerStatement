@@ -44,8 +44,7 @@ class StatementValidatorTest {
 
 	@Test
 	@DisplayName("When getting duplicate records")
-	void testGetDuplicateRecords() {
-		System.out.println("dup====>"+statementValidator.getDuplicateRecords(mockRecordList));
+	void testGetDuplicateRecords() {		
 		assertAll(
 				() -> assertIterableEquals(getExpectDupRecordList(), statementValidator.getDuplicateRecords(mockRecordList),
 						"Failed to get duplicate records."),
