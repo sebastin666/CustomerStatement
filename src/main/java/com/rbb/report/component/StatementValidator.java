@@ -1,4 +1,4 @@
-package com.rbb.report.comp;
+package com.rbb.report.component;
 
 import com.rbb.report.model.Record;
 import org.slf4j.Logger;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class StatementValidator {
 
-	Logger logger = LoggerFactory.getLogger(StatementValidator.class);
+	private static final Logger logger = LoggerFactory.getLogger(StatementValidator.class);
 
 	@Value("#{'${upload.allowed.format}'.split(',')}")
 	private List<String> allowedFormats;
@@ -34,12 +33,12 @@ public class StatementValidator {
 			throw new UnsupportedOperationException(
 					"Error occured while validating duplicate references. Please check for any invalid data in the uploaded file.");
 		}
-		return new ArrayList<Record>();
+		return Collections.emptyList();
 	}
 
 	public List<Record> getWrongEndBalanceRecords(List<Record> totalRecords) {		
 		try {
-			if (totalRecords != null && !totalRecords.isEmpty()) {
+			if (totalRecords != null && !totalRecords.isEmpty()) {				
 				return totalRecords.stream().filter(record -> (record.getStartBalance().add(record.getMutation()))
 						.compareTo(record.getEndBalance()) != 0).collect(Collectors.toList());
 			}
@@ -47,7 +46,7 @@ public class StatementValidator {
 			throw new UnsupportedOperationException(
 					"Error occured while validating end balance. Please check for any invalid data in the uploaded file.");
 		}
-		return new ArrayList<Record>();
+		return Collections.emptyList();
 	}
 
 }

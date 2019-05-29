@@ -13,7 +13,7 @@ import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.rbb.report.MockBase;
-import com.rbb.report.comp.StatementValidator;
+import com.rbb.report.component.StatementValidator;
 import com.rbb.report.model.Record;
 
 class StatementServiceTest extends MockBase{
@@ -31,11 +31,11 @@ class StatementServiceTest extends MockBase{
 	
 	@Test
 	@DisplayName("When generate failed report")
-	void testGenarateReport() {		
+	void testGenerateReport() {		
 		mockCSVMultipartFile = new MockMultipartFile("records", "records.txt", "text/plain", getMockCSVData().getBytes());
 		//	
-		assertThrows(UnsupportedOperationException.class, () -> statementService.genarateReport(mockCSVMultipartFile), "Test with invalid file");
-		assertThrows(UnsupportedOperationException.class, () -> statementService.genarateReport(null), "Test with null");
+		assertThrows(UnsupportedOperationException.class, () -> statementService.generateReport(mockCSVMultipartFile), "Test with invalid file");
+		assertThrows(UnsupportedOperationException.class, () -> statementService.generateReport(null), "Test with null");
 	}
 
 	@Test

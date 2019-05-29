@@ -39,7 +39,7 @@ public class StatementControllerTest extends MockBase{
 	public void testStatementReceiverWithContent() {
 		List<Record> data = new ArrayList<>();
 		data.add(new Record());
-		Mockito.when(statementService.genarateReport(any())).thenReturn(data);
+		Mockito.when(statementService.generateReport(any())).thenReturn(data);
 		ResponseEntity<?> entity = controller.validateStatement(mockCSVMultipartFile);
 		assertThat(entity.getStatusCode().value()).isEqualTo(200);
 	}
@@ -47,7 +47,7 @@ public class StatementControllerTest extends MockBase{
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testStatementReceiverWithInvalidFileContent() {
-		Mockito.when(statementService.genarateReport(any())).thenThrow(UnsupportedOperationException.class);
+		Mockito.when(statementService.generateReport(any())).thenThrow(UnsupportedOperationException.class);
 		ResponseEntity<?> entity = controller.validateStatement(mockCSVMultipartFile);
 		assertThat(entity.getStatusCode().value()).isEqualTo(400);
 	}

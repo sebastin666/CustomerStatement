@@ -14,7 +14,7 @@
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<name>CustomerStatement</name>
-	<description>Genarate failed transaction report</description>
+	<description>Generate failed transaction report</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -105,7 +105,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>**/com/rbb/report/**</exclude>
+								<exclude>**/com/rbb/report/CustomerStatementApplication.class</exclude>
 							</excludes>
 							<rules>
 								<rule>

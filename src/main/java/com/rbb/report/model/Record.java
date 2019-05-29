@@ -11,6 +11,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.univocity.parsers.annotations.Parsed;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="Details about customer statement record")
 @XmlRootElement(name = "record")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Record {
@@ -28,6 +32,7 @@ public class Record {
 		this.endBalance = endBalance;		
 	}
 
+	@ApiModelProperty(notes="Statement reference number")
 	@Parsed(field = "Reference")
 	@XmlAttribute
 	private long reference;
@@ -47,6 +52,7 @@ public class Record {
 	@XmlElement
 	@JsonIgnore
 	private BigDecimal endBalance;
+	@ApiModelProperty(notes="Statement description")
 	@Parsed(field = "Description")
 	@XmlElement
 	private String description;
@@ -119,6 +125,11 @@ public class Record {
 		}
 
 		return true;
+	}
+	
+	@Override
+	public String toString() {		
+		return "Records["+reference+", "+accountNumber+", "+description+", "+startBalance+", "+mutation+", "+endBalance+"]";
 	}
 
 }

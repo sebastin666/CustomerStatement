@@ -13,11 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.internal.util.reflection.Whitebox;
 
 import com.rbb.report.MockBase;
+import com.rbb.report.component.StatementValidator;
 import com.rbb.report.model.Record;
 
 class StatementValidatorTest extends MockBase {
 
-	StatementValidator statementValidator;
+	private StatementValidator statementValidator;
 
 	@BeforeEach
 	void setUp() throws Exception {

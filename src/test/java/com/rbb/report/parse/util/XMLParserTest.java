@@ -14,7 +14,6 @@ class XMLParserTest extends MockBase {
 	private XMLParser xmlParser = new XMLParser();
 	private MockMultipartFile mockXMLMultipartFile;
 	private MockMultipartFile mockInvalidXMLMultipartFile;
-	private MockMultipartFile mockWrongFormatMultipartFile;
 
 	@BeforeEach
 	void setUp() {

@@ -1,6 +1,5 @@
 package com.rbb.report.parse.util;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
@@ -16,7 +15,7 @@ import com.univocity.parsers.csv.CsvParserSettings;
 
 public class CSVParser implements Parser {
 
-	Logger logger = LoggerFactory.getLogger(CSVParser.class);
+	private static final Logger logger = LoggerFactory.getLogger(CSVParser.class);
 	
 	@Override
 	public Object parse(MultipartFile file) throws UnsupportedOperationException {

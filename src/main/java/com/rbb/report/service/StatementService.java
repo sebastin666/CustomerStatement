@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rbb.report.comp.StatementValidator;
+import com.rbb.report.component.StatementValidator;
 import com.rbb.report.model.Record;
 import com.rbb.report.model.Records;
 import com.rbb.report.parse.util.ParserUtil;
@@ -18,12 +18,12 @@ import com.rbb.report.parse.util.ParserUtil;
 public class StatementService {
 
 	@Autowired
-	StatementValidator statementValidator;
+	private StatementValidator statementValidator;
 	
-	Logger logger = LoggerFactory.getLogger(StatementService.class);
+	private static final Logger logger = LoggerFactory.getLogger(StatementService.class);
 
-	public List<Record> genarateReport(MultipartFile file) throws UnsupportedOperationException {
-		logger.debug("GenarateReport Called");
+	public List<Record> generateReport(MultipartFile file) throws UnsupportedOperationException {
+		logger.debug("GenerateReport Called");
 		if(file == null) {
 			throw new UnsupportedOperationException("Invalid file. Please try again.");
 		}
