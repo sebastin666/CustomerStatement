@@ -1,4 +1,4 @@
-# CustomerStatement
+# Customer Statement
 Validate the customer statement and generate the report to show the failed records.
 The duplicated records and wrong end balance records are considered as failed records.
 
